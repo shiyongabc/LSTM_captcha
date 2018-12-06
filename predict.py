@@ -4,6 +4,8 @@ import tensorflow as tf
 from computational_graph_lstm import *
 from config import *
 from util import *
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # def get_test_set():
 #
