@@ -3,7 +3,7 @@
 import os
 import random
 import numpy as np
-from PIL import Image
+import Image
 from config import *
 
 
