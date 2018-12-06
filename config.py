@@ -18,7 +18,7 @@ ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 
-batch_size = 64  #size of batch
+batch_size = 100  #size of batch
 time_steps = 50   #unrolled through 28 time steps #每个time_step是图像的一行像素 height
 n_input = 100  #rows of 28 pixels  #width
 image_channels = 1  # 图像的通道数
