@@ -2,9 +2,10 @@
 
 
 import tensorflow as tf
-from LSTM_captcha.util import *
-from LSTM_captcha.computational_graph_lstm import *
 
+
+from computational_graph_lstm import *
+from util import *
 
 def train():
 
