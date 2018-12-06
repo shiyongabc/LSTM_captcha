@@ -1,9 +1,9 @@
 #-*- coding:utf-8 -*
 
 import tensorflow as tf
-from LSTM_captcha.computational_graph_lstm import *
-from LSTM_captcha.config import *
-from LSTM_captcha.util import *
+from computational_graph_lstm import *
+from config import *
+from util import *
 
 # def get_test_set():
 #
