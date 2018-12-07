@@ -1,11 +1,11 @@
 #coding=utf-8
 
-from train_from_genate.gen_captcha import *
+#from train_from_genate.gen_captcha import *
 
 
 import numpy as np
 import tensorflow as tf
-
+from train_from_genate.gen_captcha import *
 """
 text, image = gen_captcha_text_and_image()
 print  "验证码图像channel:", image.shape  # (60, 160, 3)
