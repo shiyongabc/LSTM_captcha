@@ -1,6 +1,6 @@
 #coding=utf-8
-from train_from_genate.gen_captcha import *
 
+from train_from_genate.gen_captcha import *
 
 
 import numpy as np
