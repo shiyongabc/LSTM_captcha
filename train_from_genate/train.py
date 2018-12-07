@@ -5,7 +5,7 @@
 
 import numpy as np
 import tensorflow as tf
-from train_from_genate.gen_captcha import *
+from gen_captcha import *
 """
 text, image = gen_captcha_text_and_image()
 print  "验证码图像channel:", image.shape  # (60, 160, 3)
@@ -200,12 +200,13 @@ def train_crack_captcha_cnn():
         while True:
             batch_x, batch_y = get_next_batch(64)
             _, loss_ = sess.run([optimizer, loss], feed_dict={X: batch_x, Y: batch_y, keep_prob: 0.75})
-            print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())),step, loss_)
+            #print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())),step, loss_)
 
             # 每100 step计算一次准确率
             if step % 100 == 0:
                 batch_x_test, batch_y_test = get_next_batch(100)
                 acc = sess.run(accuracy, feed_dict={X: batch_x_test, Y: batch_y_test, keep_prob: 1.})
+                print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())), step, loss_)
                 print(u'***************************************************************第%s次的准确率为%s'%(step, acc))
                 # 如果准确率大于50%,保存模型,完成训练
                 if acc > 0.9:                  ##我这里设了0.9，设得越大训练要花的时间越长，如果设得过于接近1，很难达到。如果使用cpu，花的时间很长，cpu占用很高电脑发烫。
