@@ -1,8 +1,7 @@
 #coding=utf-8
-from train_from_genate.gen_captcha import gen_captcha_text_and_image
-from train_from_genate.gen_captcha import number
-from train_from_genate.gen_captcha import alphabet
-from train_from_genate.gen_captcha import ALPHABET
+from train_from_genate.gen_captcha import *
+
+
 
 import numpy as np
 import tensorflow as tf
