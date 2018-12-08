@@ -214,7 +214,7 @@ def train_crack_captcha_cnn():
                 print(u'***************************************************************第%s次的准确率为%s'%(step, acc))
                 # 如果准确率大于50%,保存模型,完成训练
                 if acc > 0.001:                  ##我这里设了0.9，设得越大训练要花的时间越长，如果设得过于接近1，很难达到。如果使用cpu，花的时间很长，cpu占用很高电脑发烫。
-                    saver.save(sess, "crack_capcha.model", global_step=step)
+                    saver.save(sess, model_path, global_step=step)
                     print(time.time()-start_time)
                     break
 
