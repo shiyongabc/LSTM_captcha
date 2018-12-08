@@ -5,8 +5,7 @@
 
 import numpy as np
 import tensorflow as tf
-from gen_captcha import *
-import os
+
 """
 text, image = gen_captcha_text_and_image()
 print  "验证码图像channel:", image.shape  # (60, 160, 3)
@@ -16,12 +15,9 @@ IMAGE_WIDTH = 160
 MAX_CAPTCHA = len(text)
 print   "验证码文本最长字符数", MAX_CAPTCHA  # 验证码最长4字符; 我全部固定为4,可以不固定. 如果验证码长度小于4，用'_'补齐
 """
-IMAGE_HEIGHT = 60
-IMAGE_WIDTH = 160
+IMAGE_HEIGHT = 50
+IMAGE_WIDTH = 100
 MAX_CAPTCHA = 4
-path = os.getcwd()  #项目所在路径
-
-model_path = path + '/model/crack_capcha.model' #模型存放路径  crack_capcha.model
 
 # 把彩色图像转为灰度图像（色彩对识别验证码没有什么用）
 def convert2gray(img):
@@ -213,7 +209,7 @@ def train_crack_captcha_cnn():
                 print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())), step, loss_)
                 print(u'***************************************************************第%s次的准确率为%s'%(step, acc))
                 # 如果准确率大于50%,保存模型,完成训练
-                if acc > 0.001:                  ##我这里设了0.9，设得越大训练要花的时间越长，如果设得过于接近1，很难达到。如果使用cpu，花的时间很长，cpu占用很高电脑发烫。
+                if acc > 0.9:                  ##我这里设了0.9，设得越大训练要花的时间越长，如果设得过于接近1，很难达到。如果使用cpu，花的时间很长，cpu占用很高电脑发烫。
                     saver.save(sess, "crack_capcha.model", global_step=step)
                     print(time.time()-start_time)
                     break
