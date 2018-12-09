@@ -4,14 +4,14 @@ from train import *
 
 import numpy as np
 import tensorflow as tf
-import os
-from config import *
+
 from config import *
 
 def predict():
     output = crack_captcha_cnn()
     #saver = tf.train.Saver()
     sess = tf.Session()
+    print("meta_graph_path=%s,model_path=%s"%(meta_graph_path,model_path))
     saver = tf.train.import_meta_graph(meta_graph_path)
     saver.restore(sess, tf.train.latest_checkpoint(model_path))  # 读取已训练模型
 
