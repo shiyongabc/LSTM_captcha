@@ -7,6 +7,7 @@ from util import *
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
+model_path = path + '/model/crack_capcha.model' #模型存放路径  crack_capcha.model
 # def get_test_set():
 #
 #     target_file_list = os.listdir(validation_path)   #获取测试集路径下的所有文件
@@ -78,7 +79,7 @@ def predict():
 
     with tf.Session() as sess:
         saver = tf.train.import_meta_graph(path + "/model/" + "model.ckpt-5000.meta")
-        saver.restore(sess, tf.train.latest_checkpoint(path + "/model/")) #读取已训练模型
+        saver.restore(sess, tf.train.latest_checkpoint(model_path + "/model/")) #读取已训练模型
 
         graph = tf.get_default_graph()  #获取原始计算图，并读取其中的tensor
         x = graph.get_tensor_by_name("x:0")

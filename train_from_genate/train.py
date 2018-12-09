@@ -6,6 +6,7 @@
 import numpy as np
 import tensorflow as tf
 from gen_captcha import *
+from config import *
 import os
 """
 text, image = gen_captcha_text_and_image()
@@ -21,7 +22,6 @@ IMAGE_WIDTH = 160
 MAX_CAPTCHA = 4
 path = os.getcwd()  #项目所在路径
 
-model_path = path + '/model/crack_capcha.model' #模型存放路径  crack_capcha.model
 
 # 把彩色图像转为灰度图像（色彩对识别验证码没有什么用）
 def convert2gray(img):

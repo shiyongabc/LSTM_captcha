@@ -5,15 +5,18 @@ from train import *
 import numpy as np
 import tensorflow as tf
 import os
+from config import *
+from config import *
 
-
-path = os.getcwd()  #项目所在路径
-test_data_path = path + '/test_data'    #测试集-验证码文件存放路径
 def predict():
     output = crack_captcha_cnn()
-    saver = tf.train.Saver()
+    #saver = tf.train.Saver()
     sess = tf.Session()
-    saver.restore(sess, tf.train.latest_checkpoint('.'))
+    saver = tf.train.import_meta_graph(meta_graph_path)
+    saver.restore(sess, tf.train.latest_checkpoint(model_path))  # 读取已训练模型
+
+
+    #saver.restore(sess, tf.train.latest_checkpoint('.'))
 
     while (1):
 
