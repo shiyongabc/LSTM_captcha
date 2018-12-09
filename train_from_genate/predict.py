@@ -6,7 +6,7 @@ import numpy as np
 import tensorflow as tf
 
 from config import *
-
+from PIL import Image
 def predict():
     output = crack_captcha_cnn()
     #saver = tf.train.Saver()
@@ -21,7 +21,7 @@ def predict():
     while (1):
 
         text, image = gen_captcha_text_and_image()
-        image.write(text, test_data_path+'/'+text + '.jpg')  # 写到文件
+        image.save(text, test_data_path+'/'+text + '.jpg')  # 写到文件
         image = convert2gray(image)
         image = image.flatten() / 255
 
