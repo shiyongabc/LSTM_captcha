@@ -86,7 +86,7 @@ def predict1():
     output = crack_captcha_cnn()
     saver = tf.train.Saver()
     sess = tf.Session()
-    saver.restore(sess, tf.train.latest_checkpoint('.'))
+    saver.restore(sess, tf.train.latest_checkpoint(model_path))
 
     while (1):
 
@@ -98,7 +98,7 @@ def predict1():
         predict = tf.argmax(tf.reshape(output, [-1, MAX_CAPTCHA, CHAR_SET_LEN]), 2)
         text_list = sess.run(predict, feed_dict={X: [image], keep_prob: 1})
         predict_text = text_list[0].tolist()
-        
+
 
         vector = np.zeros(MAX_CAPTCHA * CHAR_SET_LEN)
         i = 0
