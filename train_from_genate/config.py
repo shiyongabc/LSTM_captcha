@@ -15,7 +15,7 @@ time_steps = 50   #unrolled through 28 time steps #每个time_step是图像的�
 n_input = 100  #rows of 28 pixels  #width
 image_channels = 1  # 图像的通道数
 captcha_num = 4 # 验证码中字符个数
-n_classes = len(number) + len(ALPHABET)    #类别分类
+
 
 
 
