@@ -34,8 +34,8 @@ def predict():
         saver.restore(sess, tf.train.latest_checkpoint(model_path)) #读取已训练模型
 
         graph = tf.get_default_graph()  #获取原始计算图，并读取其中的tensor
-        x = graph.get_tensor_by_name("x:0")
-        y = graph.get_tensor_by_name("y:0")
+        #x = graph.get_tensor_by_name("x:0")
+        #y = graph.get_tensor_by_name("y:0")
         pre_arg = graph.get_tensor_by_name("predict:0")
 
         test_x, file_list = get_test_set()  #获取测试集
