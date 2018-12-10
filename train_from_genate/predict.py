@@ -91,7 +91,7 @@ def predict1():
     while (1):
 
         text, image = gen_captcha_text_and_image()
-        image.write(text, test_data_path+'/'+text + '.jpg')  # 写到文件
+        #image.write(text, test_data_path+'/'+text + '.jpg')  # 写到文件
         image = convert2gray(image)
         image = image.flatten() / 255
 
