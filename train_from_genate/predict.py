@@ -56,13 +56,15 @@ def predict():
 
         predict_result = predict_result[:len(file_list)]    #预测结果
         write_to_file(predict_result, file_list)    #保存到文件
+        print("预测结果保存在：", output_path)
+
 def write_to_file(predict_list, file_list):
     with open(output_path, 'a') as f:
         for i, res in enumerate(predict_list):
             if i == 0:
                 f.write("id\tfile\tresult\n")
             f.write(str(i) + "\t" + file_list[i] + "\t" + res + "\n")
-    print("预测结果保存在：",output_path)
+
 
 
 if __name__ == '__main__':
