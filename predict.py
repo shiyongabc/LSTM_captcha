@@ -78,7 +78,7 @@ def open_iamge(file):
 def predict():
 
     with tf.Session() as sess:
-        saver = tf.train.import_meta_graph(path + "/model/" + "model.ckpt-4768.meta")
+        saver = tf.train.import_meta_graph(meta_graph)
         #moudke_file = tf.train.latest_checkpoint('PATH')
         print("moudke_file=%s"%moudke_file)
         saver.restore(sess, tf.train.latest_checkpoint(moudke_file)) #读取已训练模型
