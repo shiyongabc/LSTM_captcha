@@ -134,4 +134,4 @@ def predict1():
 
 if __name__ == '__main__':
     #predict1()
-    predictFromPath()
+    predictFromPath('/root/python-shell/verifycode/dianwang/8.tif','8FhG')
