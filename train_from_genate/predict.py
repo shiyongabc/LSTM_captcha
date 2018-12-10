@@ -27,6 +27,13 @@ def get_test_set():
     batch = batch.reshape([batch_len, batch_size, time_steps, n_input])
     return batch, target_file_list #batch_file_name
 
+def open_iamge(file):
+    img = Image.open(test_data_path + '/' + file) #打开图片
+    img = np.array(img)
+    if len(img.shape) > 2:
+        img = np.mean(img, -1)  #转换成灰度图像:(26,80,3) =>(26,80)
+        img = img / 255
+    return img
 
 def predict():
     output = crack_captcha_cnn()
