@@ -79,7 +79,9 @@ def predict():
 
     with tf.Session() as sess:
         saver = tf.train.import_meta_graph(path + "/model/" + "model.ckpt-4768.meta")
-        saver.restore(sess, tf.train.latest_checkpoint(model_path)) #读取已训练模型
+        moudke_file = tf.train.latest_checkpoint('PATH')
+        print("moudke_file=%s"%moudke_file)
+        saver.restore(sess, tf.train.latest_checkpoint(moudke_file)) #读取已训练模型
 
         graph = tf.get_default_graph()  #获取原始计算图，并读取其中的tensor
         x = graph.get_tensor_by_name("x:0")
