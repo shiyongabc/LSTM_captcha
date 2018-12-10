@@ -46,7 +46,9 @@ def predict():
         #y = graph.get_tensor_by_name("y:0")
         #pre_arg = graph.get_tensor_by_name("predict:0")
         predict = tf.argmax(tf.reshape(output, [-1, MAX_CAPTCHA, CHAR_SET_LEN]), 2)
-        test_x, image = get_test_set()  #获取测试集
+        #test_x, image = get_test_set()  #获取测试集
+        test_x="wXW0"
+        image=Image.open(test_data_path+"/wXW0.png")
         print("image=%s"%image)
         image = convert2gray(image)
         image = image.flatten() / 255

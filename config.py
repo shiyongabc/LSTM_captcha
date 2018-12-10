@@ -11,8 +11,8 @@ test_data_path = path + '/test_data'    #测试集-验证码文件存放路径
 output_path = path + '/result/result.txt'   #测试结果存放路径
 model_path = path + '/model/model.ckpt' #模型存放路径
 
-meta_graph=path+'/train_from_genate/model/crack_capcha.model-37100.meta'
-moudke_file=path+'/train_from_genate/model/'
+meta_graph=path+'/model/crack_capcha.model-4768.meta'
+moudke_file=path+'/model/'
 
 #要识别的字符
 number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
