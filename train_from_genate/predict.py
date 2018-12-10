@@ -41,10 +41,6 @@ def predict():
         saver = tf.train.import_meta_graph(meta_graph_path)
         saver.restore(sess, tf.train.latest_checkpoint(model_path)) #读取已训练模型
 
-        graph = tf.get_default_graph()  #获取原始计算图，并读取其中的tensor
-        #x = graph.get_tensor_by_name("x:0")
-        #y = graph.get_tensor_by_name("y:0")
-        #pre_arg = graph.get_tensor_by_name("predict:0")
         predict = tf.argmax(tf.reshape(output, [-1, MAX_CAPTCHA, CHAR_SET_LEN]), 2)
         #test_x, image = get_test_set()  #获取测试集
         test_x="wXw0"
@@ -81,6 +77,33 @@ def write_to_file(predict_list, file_list):
             f.write(str(i) + "\t" + file_list[i] + "\t" + res + "\n")
 
 
+def predictFromPath(imgPath,text):# imgPath 图片路径  text真实值
+    output = crack_captcha_cnn()
+    saver = tf.train.Saver()
+    sess = tf.Session()
+    saver.restore(sess, tf.train.latest_checkpoint(model_path))
+
+    #text, image = gen_captcha_text_and_image()
+    captcha_image = Image.open(imgPath)
+    image = np.array(captcha_image)
+
+    image = convert2gray(image)
+    image = image.flatten() / 255
+
+    predict = tf.argmax(tf.reshape(output, [-1, MAX_CAPTCHA, CHAR_SET_LEN]), 2)
+    text_list = sess.run(predict, feed_dict={X: [image], keep_prob: 1})
+    predict_text = text_list[0].tolist()
+
+
+    vector = np.zeros(MAX_CAPTCHA * CHAR_SET_LEN)
+    i = 0
+    for t in predict_text:
+        vector[i * 63 + t] = 1
+        i += 1
+        # break
+
+    print("正确: {}  预测: {}".format(text, vec2text(vector)))
+
 
 def predict1():
     output = crack_captcha_cnn()
@@ -110,4 +133,5 @@ def predict1():
         print("正确: {}  预测: {}".format(text, vec2text(vector)))
 
 if __name__ == '__main__':
-    predict1()
+    #predict1()
+    predictFromPath()
