@@ -50,6 +50,7 @@ def predict():
         test_x="wXw0"
         image=Image.open(test_data_path+"/wXw0.png")
         print("image=%s"%image)
+        image = np.array(image)
         image = convert2gray(image)
         image = image.flatten() / 255
 
