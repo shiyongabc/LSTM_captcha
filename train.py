@@ -36,7 +36,7 @@ def train():
                 #     break
         #    if iter % 1000 == 0:   #保存模型
         #       saver.save(sess, model_path, global_step=iter)
-                step += 1
+            step += 1
         # 计算验证集准确率
         valid_x, valid_y = get_batch(data_path=validation_path, is_training=False)
         print("Validation Accuracy:", sess.run(accuracy, feed_dict={x: valid_x, y: valid_y}))
