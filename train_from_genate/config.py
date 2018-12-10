@@ -8,7 +8,9 @@ path = os.getcwd()  #项目所在路径
 test_data_path=path + '/test_data'
 output_path=path + '/result'
 meta_graph_path = path + '/model/crack_capcha.model-37100.meta'   #测试结果存放路径 meta_graph
-model_path = path + '/model/' #模型存放路径
+
+model_path = path + '/model/model.ckpt' #模型存放路径
+moudke_file = path + '/model/' #模型存放路径
 
 #要识别的字符
 number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
