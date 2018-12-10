@@ -36,14 +36,14 @@ def predict():
         graph = tf.get_default_graph()  #获取原始计算图，并读取其中的tensor
         #x = graph.get_tensor_by_name("x:0")
         #y = graph.get_tensor_by_name("y:0")
-        pre_arg = graph.get_tensor_by_name("predict:0")
-
+        #pre_arg = graph.get_tensor_by_name("predict:0")
+        predict = tf.argmax(tf.reshape(output, [-1, MAX_CAPTCHA, CHAR_SET_LEN]), 2)
         test_x, file_list = get_test_set()  #获取测试集
         predict_result = []
         for i in range(len(test_x)):
             batch_test_x = test_x[i]
             batch_test_y = np.zeros([batch_size, captcha_num,n_classes])    #创建空的y输入
-            test_predict = sess.run([pre_arg], feed_dict={x: batch_test_x, y:batch_test_y})
+            test_predict = sess.run(predict, feed_dict={x: batch_test_x, y:batch_test_y})
             # print(test_predict)
             # predict_result.extend(test_predict)
 
