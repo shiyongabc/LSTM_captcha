@@ -51,7 +51,7 @@ def predict():
         for i in range(len(test_x)):
             batch_test_x = test_x[i]
             batch_test_y = np.zeros([batch_size, captcha_num,n_classes])    #创建空的y输入
-            test_predict = sess.run(predict, feed_dict={x: batch_test_x, y:batch_test_y})
+            test_predict = sess.run(predict, feed_dict={X: batch_test_x, Y:batch_test_y})
             # print(test_predict)
             # predict_result.extend(test_predict)
 
