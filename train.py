@@ -23,7 +23,7 @@ def train():
     with tf.Session() as sess:  # 创建tensorflow session
         sess.run(init)
         step = 0
-        while true:
+        while True:
             batch_x, batch_y = get_batch()
             sess.run(opt, feed_dict={x: batch_x, y: batch_y})   #只运行优化迭代计算图
             los, acc, parg, yarg = sess.run([loss, accuracy, pre_arg, y_arg],feed_dict={x:batch_x,y:batch_y})
