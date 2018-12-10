@@ -29,6 +29,7 @@ def get_test_set():
 
 
 def predict():
+    output = crack_captcha_cnn()
     with tf.Session() as sess:
         saver = tf.train.import_meta_graph(meta_graph_path)
         saver.restore(sess, tf.train.latest_checkpoint(model_path)) #读取已训练模型
