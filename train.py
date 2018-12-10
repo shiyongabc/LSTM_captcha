@@ -29,14 +29,14 @@ def train():
             los, acc, parg, yarg = sess.run([loss, accuracy, pre_arg, y_arg],feed_dict={x:batch_x,y:batch_y})
             if step % 100 ==0:
                 print("训练第%s,准确率为%s"%(step, acc))
-
+            step += 1
             if acc > 0.9:
                 saver.save(sess, model_path, global_step=iter)
                 print("training complete, accuracy:", acc)
                 #     break
         #    if iter % 1000 == 0:   #保存模型
         #       saver.save(sess, model_path, global_step=iter)
-            step += 1
+
         # 计算验证集准确率
         valid_x, valid_y = get_batch(data_path=validation_path, is_training=False)
         print("Validation Accuracy:", sess.run(accuracy, feed_dict={x: valid_x, y: valid_y}))
