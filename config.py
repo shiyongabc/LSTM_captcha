@@ -11,7 +11,7 @@ test_data_path = path + '/test_data'    #测试集-验证码文件存放路径
 output_path = path + '/result/result.txt'   #测试结果存放路径
 model_path = path + '/model/model.ckpt' #模型存放路径
 
-moudke_file=path+'/model/model.ckpt-4768.index'
+moudke_file=path+'/model/'
 
 #要识别的字符
 number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
