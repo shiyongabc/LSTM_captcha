@@ -37,7 +37,7 @@ def gen_captcha_text_and_image():
         captcha_text = ''.join(captcha_text)
 
         captcha = image.generate(captcha_text)
-        #image.write(captcha_text, captcha_text + '.jpg')  # 写到文件
+        image.write(captcha_text, captcha_text + '.png')  # 写到文件
 
         captcha_image = Image.open(captcha)
         #captcha_image.show()
