@@ -29,10 +29,11 @@ def train():
             los, acc, parg, yarg = sess.run([loss, accuracy, pre_arg, y_arg],feed_dict={x:batch_x,y:batch_y})
             if step % 100 ==0:
                 print("训练第%s,准确率为%s"%(step, acc))
-            step += 1
-            if acc > 0.9:
-                saver.save(sess, model_path, global_step=iter)
+
+            if acc > 0.01:
+                saver.save(sess, model_path, global_step=step)
                 print("training complete, accuracy:", acc)
+            step += 1
                 #     break
         #    if iter % 1000 == 0:   #保存模型
         #       saver.save(sess, model_path, global_step=iter)
