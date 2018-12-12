@@ -166,7 +166,7 @@ def crack_captcha_cnn(w_alpha=0.01, b_alpha=0.1):
 
     # Fully connected layer  8 * 32 * 40  10240  5120
     w_d = tf.Variable(w_alpha * tf.random_normal([4 * 32 * 40, 5120]))
-    b_d = tf.Variable(b_alpha * tf.random_normal([1024]))
+    b_d = tf.Variable(b_alpha * tf.random_normal([5120]))
     dense = tf.reshape(conv3, [-1, w_d.get_shape().as_list()[0]])
     dense = tf.nn.relu(tf.add(tf.matmul(dense, w_d), b_d))
     dense = tf.nn.dropout(dense, keep_prob)
