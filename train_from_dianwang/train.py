@@ -168,13 +168,15 @@ def crack_captcha_cnn(w_alpha=0.01, b_alpha=0.1):
     print(conv3.shape)
 
     # Fully connected layer  8 * 32 * 40  10240  5120   372736
-    w_d = tf.Variable(w_alpha * tf.random_normal([7*7*64, 1024]))
+    w_d = tf.Variable(w_alpha * tf.random_normal([7*13*64, 1024]))
     b_d = tf.Variable(b_alpha * tf.random_normal([1024]))
     dense = tf.reshape(conv3, [-1, w_d.get_shape().as_list()[0]])
     print(dense.shape)
 
     dense = tf.nn.relu(tf.add(tf.matmul(dense, w_d), b_d))
     dense = tf.nn.dropout(dense, keep_prob)
+
+
     print(dense.shape)
 
     w_out = tf.Variable(w_alpha * tf.random_normal([1024, MAX_CAPTCHA * CHAR_SET_LEN]))
@@ -207,9 +209,10 @@ def train_crack_captcha_cnn():
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
 
-        step = 0
+        step = 1
         while True:
             batch_x, batch_y = get_next_batch(64)
+
             _, loss_ = sess.run([optimizer, loss], feed_dict={X: batch_x, Y: batch_y, keep_prob: 0.75})
             #print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())),step, loss_)
 
