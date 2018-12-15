@@ -30,7 +30,7 @@ def train():
             if step % 100 ==0:
                 print("训练第%s,准确率为%s"%(step, acc))
 
-            if acc > 0.95:
+            if acc > 0.5:
                 saver.save(sess, model_path, global_step=step)
                 print("training complete, accuracy:", acc)
                 break
