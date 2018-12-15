@@ -133,5 +133,5 @@ def predict1():
         print("正确: {}  预测: {}".format(text, vec2text(vector)))
 
 if __name__ == '__main__':
-    #predict1()
-    predictFromPath('/root/python-shell/verifycode/dianwang/1.png','8FhG')
+    predict1()
+    #predictFromPath('/root/python-shell/verifycode/dianwang/1.png','8FhG')
