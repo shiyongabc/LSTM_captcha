@@ -81,7 +81,7 @@ def predictFromPath(imgPath,text):# imgPath 图片路径  text真实值
     output = crack_captcha_cnn()
     saver = tf.train.Saver()
     sess = tf.Session()
-    saver.restore(sess, tf.train.latest_checkpoint(model_path))
+    saver.restore(sess, tf.train.latest_checkpoint(moudke_file))
 
     #text, image = gen_captcha_text_and_image()
     captcha_image = Image.open(imgPath)
@@ -109,7 +109,7 @@ def predict1():
     output = crack_captcha_cnn()
     saver = tf.train.Saver()
     sess = tf.Session()
-    saver.restore(sess, tf.train.latest_checkpoint(model_path))
+    saver.restore(sess, tf.train.latest_checkpoint(moudke_file))
 
     while (1):
 
