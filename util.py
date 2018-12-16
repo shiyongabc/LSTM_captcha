@@ -26,6 +26,7 @@ def get_batch(data_path = captcha_path, is_training = True):
         batch_x[i] = img
 
         label = np.zeros(captcha_num * n_classes)
+        print("file_name=%s"%file_name)
         for num, char in enumerate(file_name.split('.')[0]):
             index = num * n_classes + char2index(char)
             label[index] = 1
