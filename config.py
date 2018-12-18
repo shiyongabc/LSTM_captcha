@@ -11,7 +11,7 @@ test_data_path = path + '/test_data_dianwang'    #测试集-验证码文件存�
 output_path = path + '/result/result_dianwang.txt'   #测试结果存放路径
 model_path = path + '/model/dianwang_model.ckpt' #模型存放路径
 
-meta_graph=path+'/model/dianwang_model.ckpt-2015.meta'
+meta_graph=path+'/model/dianwang_model.ckpt-2515.meta'
 moudke_file=path+'/model/'
 
 #要识别的字符
