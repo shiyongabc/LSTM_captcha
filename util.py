@@ -45,6 +45,7 @@ def char2index(c):
     if k >= 97 and k <= 122: #小写字母索引
         index = k - 61
     if index == -1:
+        print('c=%s'%c)
         raise ValueError('No Map')
     return index
 
