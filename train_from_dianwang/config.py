@@ -5,6 +5,7 @@ import os
 
 path = os.getcwd()  #项目所在路径
 
+captcha_path=path + '/train_data'
 test_data_path=path + '/test_data'
 output_path=path + '/result'
 meta_graph_path = path + '/model/model.ckpt-126400.meta'   #测试结果存放路径 meta_graph
@@ -24,7 +25,7 @@ image_channels = 1  # 图像的通道数
 captcha_num = 4 # 验证码中字符个数
 
 
-n_classes = len(number) + len(ALPHABET)    #类别分类
+n_classes = len(number) + len(ALPHABET)+len(alphabet)    #类别分类
 
 
 

@@ -105,6 +105,60 @@ text = vec2text(vec)
 print(text)  # SFd5
 """
 
+def get_batch(data_path = captcha_path, is_training = True,batch=64):
+    target_file_list = os.listdir(data_path)    #读取路径下的所有文件名
+
+    batch = batch_size if is_training else len(target_file_list)   # 确认batch 大小
+    batch_x = np.zeros([batch, time_steps, n_input])   #batch 数据
+    batch_y = np.zeros([batch, captcha_num, n_classes])   # batch 标签
+
+
+    for i in range(batch):
+        file_name = random.choice(target_file_list) if is_training else target_file_list[i] #确认要打开的文件名
+        img = Image.open(data_path + '/' + file_name) #打开图片
+        img = np.array(img)
+        if len(img.shape) > 2:
+            img = np.mean(img, -1)  #转换成灰度图像:(26,80,3) =>(26,80)
+            img = img / 255   #标准化，为了防止训练集的方差过大而导致的收敛过慢问题。
+            # img = np.reshape(img,[time_steps,n_input])  #转换格式：(2080,) => (26,80)
+        batch_x[i] = img
+
+        label = np.zeros(captcha_num * n_classes)
+        #print("file_name=%s"%file_name)
+        for num, char in enumerate(file_name.split('.')[0]):
+            index = num * n_classes + char2index(char)
+            label[index] = 1
+        label = np.reshape(label,[captcha_num, n_classes])
+        batch_y[i] = label
+    return batch_x, batch_y
+
+
+def char2index(c):
+    k = ord(c)
+    index = -1
+    if k >= 48 and k <= 57: #数字索引
+        index = k - 48
+    if k >= 65 and k <= 90: #大写字母索引
+        index = k - 55
+    if k >= 97 and k <= 122: #小写字母索引
+        index = k - 61
+    if index == -1:
+        raise ValueError('No Map')
+    return index
+
+
+def index2char(k):
+    # k = chr(num)
+    index = -1
+    if k >= 0 and k < 10: #数字索引
+        index = k + 48
+    if k >= 10 and k < 36: #大写字母索引
+        index = k + 55
+    if k >= 36 and k < 62: #小写字母索引
+        index = k + 61
+    if index == -1:
+        raise ValueError('No Map')
+    return chr(index)
 
 # 生成一个训练batch
 def get_next_batch(batch_size=128):
@@ -158,12 +212,13 @@ def crack_captcha_cnn(w_alpha=0.01, b_alpha=0.1):
     conv2 = tf.nn.relu(tf.nn.bias_add(tf.nn.conv2d(conv1, w_c2, strides=[1, 1, 1, 1], padding='SAME'), b_c2))
     conv2 = tf.nn.max_pool(conv2, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding='SAME')
     conv2 = tf.nn.dropout(conv2, keep_prob)
-    #print(conv2.shape)
+    print(conv2.shape)
 
     w_c3 = tf.Variable(w_alpha * tf.random_normal([3, 3, 64, 64]))
     b_c3 = tf.Variable(b_alpha * tf.random_normal([64]))
     conv3 = tf.nn.relu(tf.nn.bias_add(tf.nn.conv2d(conv2, w_c3, strides=[1, 1, 1, 1], padding='SAME'), b_c3))
     conv3 = tf.nn.max_pool(conv3, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding='SAME')
+    print(conv3.shape)
     conv3 = tf.nn.dropout(conv3, keep_prob)
     print(conv3.shape)
 
@@ -211,19 +266,19 @@ def train_crack_captcha_cnn():
 
         step = 0
         while True:
-            batch_x, batch_y = get_next_batch(64)
+            batch_x, batch_y = get_batch()
 
             _, loss_ = sess.run([optimizer, loss], feed_dict={X: batch_x, Y: batch_y, keep_prob: 0.75})
             #print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())),step, loss_)
 
             # 每100 step计算一次准确率
             if step % 100 == 0:
-                batch_x_test, batch_y_test = get_next_batch(100)
+                batch_x_test, batch_y_test = get_batch(data_path = captcha_path, is_training = True,batch=100)
                 acc = sess.run(accuracy, feed_dict={X: batch_x_test, Y: batch_y_test, keep_prob: 1.})
                 print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())), step, loss_)
                 print(u'***************************************************************第%s次的准确率为%s'%(step, acc))
                 # 如果准确率大于50%,保存模型,完成训练
-                if acc > 0.9:                  ##我这里设了0.9，设得越大训练要花的时间越长，如果设得过于接近1，很难达到。如果使用cpu，花的时间很长，cpu占用很高电脑发烫。
+                if acc > 0.001:                  ##我这里设了0.9，设得越大训练要花的时间越长，如果设得过于接近1，很难达到。如果使用cpu，花的时间很长，cpu占用很高电脑发烫。
                     saver.save(sess, model_path, global_step=step)
                     print(time.time()-start_time)
                     break

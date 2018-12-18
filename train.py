@@ -27,10 +27,11 @@ def train():
             batch_x, batch_y = get_batch()
             sess.run(opt, feed_dict={x: batch_x, y: batch_y})   #只运行优化迭代计算图
             los, acc, parg, yarg = sess.run([loss, accuracy, pre_arg, y_arg],feed_dict={x:batch_x,y:batch_y})
+
             if step % 100 ==0:
                 print("训练第%s,准确率为%s"%(step, acc))
 
-            if acc > 0.95:
+            if acc > 0.89:
                 saver.save(sess, model_path, global_step=step)
                 print("training complete, accuracy:", acc)
                 break
