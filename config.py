@@ -11,7 +11,7 @@ test_data_path = path + '/test_data_dianwang'    #测试集-验证码文件存�
 output_path = path + '/result/result_dianwang.txt'   #测试结果存放路径
 model_path = path + '/model/dianwang_model.ckpt' #模型存放路径
 
-meta_graph=path+'/model/dianwang_model.ckpt-4574.meta'
+meta_graph=path+'/model/dianwang_model.ckpt-3542.meta'
 moudke_file=path+'/model/'
 
 #要识别的字符
@@ -25,7 +25,7 @@ time_steps = 50   #unrolled through 28 time steps #每个time_step是图像的�
 n_input = 100  #rows of 28 pixels  #width
 image_channels = 1  # 图像的通道数
 captcha_num = 4 # 验证码中字符个数
-n_classes = len(number) + len(ALPHABET)+ len(alphabet)    #类别分类
+n_classes = len(number) + len(ALPHABET)    #类别分类
 
 learning_rate = 0.001   #learning rate for adam
 num_units = 128   #hidden LSTM units
