@@ -95,20 +95,28 @@ def predictFromPath(imgPath,text):
         y = graph.get_tensor_by_name("y:0")
         pre_arg = graph.get_tensor_by_name("predict:0")
 
-        batch_test_x = open_iamge_path(imgPath)
-        batch_test_y = np.zeros([batch_size, captcha_num,n_classes])    #创建空的y输入
-        test_predict = sess.run([pre_arg], feed_dict={x: batch_test_x, y:batch_test_y})
-        # print(test_predict)
-        # predict_result.extend(test_predict)
-        character = ""
-        for line in test_predict[0]:    #将预测结果转换为字符
+       # test_x, file_list = get_test_set()  #获取测试集
+        test_x=[]
+        file_list=[]
+        test_x.append(open_iamge_path(imgPath))
+        file_list.append(text)
+        
+        predict_result = []
+        for i in range(len(test_x)):
+            batch_test_x = test_x[i]
+            batch_test_y = np.zeros([batch_size, captcha_num,n_classes])    #创建空的y输入
+            test_predict = sess.run([pre_arg], feed_dict={x: batch_test_x, y:batch_test_y})
+            # print(test_predict)
+            # predict_result.extend(test_predict)
 
-            for each in line:
-                character += index2char(each)
-        print("predict-result=%s"%character)
+            for line in test_predict[0]:    #将预测结果转换为字符
+                character = ""
+                for each in line:
+                    character += index2char(each)
+                predict_result.append(character)
 
-        return character
-
+        predict_result = predict_result[:len(file_list)]    #预测结果
+        write_to_file(predict_result, file_list)    #保存到文件
 
 def predict():
 
