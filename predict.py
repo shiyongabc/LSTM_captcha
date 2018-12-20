@@ -114,7 +114,7 @@ def predictFromPath(imgPath,text):
         pre_arg = graph.get_tensor_by_name("predict:0")
 
         test_x, file_list = get_test_set_from_path(imgPath,text)  #获取测试集
-        
+
         predict_result = []
         for i in range(len(test_x)):
             batch_test_x = test_x[i]
@@ -130,7 +130,10 @@ def predictFromPath(imgPath,text):
                 predict_result.append(character)
 
         predict_result = predict_result[:len(file_list)]    #预测结果
-        write_to_file(predict_result, file_list)    #保存到文件
+        if len(predict_result)==0:
+            print("predict_result=%s"%predict_result[0])
+            return predict_result[0]
+        
 
 def predict():
 
