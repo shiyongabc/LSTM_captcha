@@ -130,10 +130,10 @@ def predictFromPath(imgPath,text):
                 predict_result.append(character)
 
         predict_result = predict_result[:len(file_list)]    #预测结果
-        if len(predict_result)==0:
+        if len(predict_result)==1:
             print("predict_result=%s"%predict_result[0])
             return predict_result[0]
-        
+
 
 def predict():
 
