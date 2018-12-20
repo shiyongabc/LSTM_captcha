@@ -73,6 +73,41 @@ def open_iamge(file):
         img = img / 255
     return img
 
+def open_iamge_path(path):
+    img = Image.open(path) #打开图片
+    img = np.array(img)
+    if len(img.shape) > 2:
+        img = np.mean(img, -1)  #转换成灰度图像:(26,80,3) =>(26,80)
+        img = img / 255
+    return img
+
+
+def predictFromPath(imgPath,text):
+
+    with tf.Session() as sess:
+        saver = tf.train.import_meta_graph(meta_graph)
+        #moudke_file = tf.train.latest_checkpoint('PATH')
+        print("moudke_file=%s"%moudke_file)
+        saver.restore(sess, tf.train.latest_checkpoint(moudke_file)) #读取已训练模型
+
+        graph = tf.get_default_graph()  #获取原始计算图，并读取其中的tensor
+        x = graph.get_tensor_by_name("x:0")
+        y = graph.get_tensor_by_name("y:0")
+        pre_arg = graph.get_tensor_by_name("predict:0")
+
+        batch_test_x = open_iamge_path(imgPath)
+        batch_test_y = np.zeros([batch_size, captcha_num,n_classes])    #创建空的y输入
+        test_predict = sess.run([pre_arg], feed_dict={x: batch_test_x, y:batch_test_y})
+        # print(test_predict)
+        # predict_result.extend(test_predict)
+        character = ""
+        for line in test_predict[0]:    #将预测结果转换为字符
+
+            for each in line:
+                character += index2char(each)
+        print("predict-result=%s"%character)
+
+        return character
 
 
 def predict():
@@ -117,5 +152,6 @@ def write_to_file(predict_list, file_list):
 
 
 if __name__ == '__main__':
-    predict()
+    #predict()
     # get_test_set()
+    predictFromPath("/root/python-shell/verifycode/LSTM_captcha/test_data_dianwang/nmQX.png","nmQX")
