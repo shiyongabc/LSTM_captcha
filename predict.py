@@ -63,7 +63,25 @@ def get_test_set():
     batch = batch.reshape([batch_len, batch_size, time_steps, n_input])
     return batch, target_file_list #batch_file_name
 
+def get_test_set_from_path(imgPath,text):
 
+
+    #判断条件
+    flag = 1 // batch_size  #计算待检测验证码个数能被batch size 整除的次数
+    batch_len = flag if flag > 0 else 1  #共有多少个batch
+    flag2 = 1 % batch_size  #计算验证码被batch size整除后的取余
+    batch_len = batch_len if flag2 == 0 else batch_len + 1  #若不能整除，则batch数量加1
+
+    print("共生成batch数:",batch_len)
+    print("验证码根据batch取余:",flag2)
+
+    batch =  np.zeros([batch_len * batch_size, time_steps, n_input])
+
+    batch[0] = open_iamge_path(imgPath)
+    batch = batch.reshape([batch_len, batch_size, time_steps, n_input])
+    target_file_list=[]
+    target_file_list.append(text)
+    return batch, target_file_list #batch_file_name
 
 def open_iamge(file):
     img = Image.open(test_data_path + '/' + file) #打开图片
@@ -95,11 +113,7 @@ def predictFromPath(imgPath,text):
         y = graph.get_tensor_by_name("y:0")
         pre_arg = graph.get_tensor_by_name("predict:0")
 
-       # test_x, file_list = get_test_set()  #获取测试集
-        test_x=[]
-        file_list=[]
-        test_x.append(open_iamge_path(imgPath))
-        file_list.append(text)
+        test_x, file_list = get_test_set_from_path(imgPath,text)  #获取测试集
         
         predict_result = []
         for i in range(len(test_x)):
