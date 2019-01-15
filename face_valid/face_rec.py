@@ -30,7 +30,7 @@ img_path = sys.argv[4]
 detector = dlib.get_frontal_face_detector()
 
 # 2.加载人脸关键点检测器
-
+print("predictor_path=%s"%predictor_path)
 sp = dlib.shape_predictor(predictor_path)
 
 # 3. 加载人脸识别模型
@@ -106,7 +106,7 @@ for k, d in enumerate(dets):
 
 # 候选人名单
 
-candidate = ['Unknown1','Unknown2','Shishi','Unknown4','Bingbing','Feifei']
+candidate = ['石勇','妈妈','陈玉','秦猛','唐文峰','美女']
 
 
 # 候选人和距离组成一个dict
