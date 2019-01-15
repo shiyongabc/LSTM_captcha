@@ -57,9 +57,14 @@ descriptors = []
 
 
 # 3.描述子提取
-
+candidate =[]
 for f in glob.glob(os.path.join(faces_folder_path, "*.jpg")):
-    print("Processing file: {}".format(f))
+    print("Processing file: %s"%f)
+    file_str_arr=f.split("/")
+    file_name=file_str_arr[len(file_str_arr)-1]
+    file_name=file_name.replace(".jpg","")
+    print("file_name=%s"%file_name)
+    candidate.append(file_name)
     img = io.imread(f)
     #win.clear_overlay()
     #win.set_image(img)
@@ -105,8 +110,8 @@ for k, d in enumerate(dets):
 
 
 # 候选人名单
-
-candidate = ['石勇','妈妈','陈玉','秦猛','唐文峰','美女']
+# 3 2 5 1 6 4
+#candidate = ['石勇','妈妈','陈玉','秦猛','唐文峰','美女']
 
 
 # 候选人和距离组成一个dict
