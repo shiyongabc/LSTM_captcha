@@ -113,6 +113,6 @@ candidate = ['石勇','妈妈','陈玉','秦猛','唐文峰','美女']
 
 c_d = dict(zip(candidate,dist))
 
-cd_sorted = sorted(c_d.iteritems(), key=lambda d:d[1])
+cd_sorted = sorted(c_d.items(), key=lambda d:d[1])
 print("\n The person is: ",cd_sorted[0][0])
 dlib.hit_enter_to_continue()
