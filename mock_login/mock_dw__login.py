@@ -3,7 +3,7 @@ from predict import *
 
 import execjs
 import requests
-
+import json
 
 def mock_login(cookie,verifyCode,verify_url,pubilicKey,login_url,dfdl_url):
     # code_url:  https://95598.gz.csg.cn/ai.do?an=rnd_4520750094   dfdl_url:  https://95598.gz.csg.cn/df/dldffx.do
@@ -17,9 +17,9 @@ def mock_login(cookie,verifyCode,verify_url,pubilicKey,login_url,dfdl_url):
     #$("#nctext").val(doRSAEncrypt(publicKey, zh));
     verify_r = checkVerifyCode(cookie,verifyCode, verify_url)
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
         'Connection': 'keep-alive',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
         'Accept-Encoding': 'gzip, deflate, br',
         #'Content-Type': 'application/x-www-form-urlencoded',
         #'Referer': 'https://95598.gz.csg.cn/df/zdcx.do',
@@ -55,8 +55,7 @@ def mock_login(cookie,verifyCode,verify_url,pubilicKey,login_url,dfdl_url):
         "dlxx.sjyzm":"",
         "verifyCode":""
     }
-    print("zh=%s" % zh)
-    print("mm=%s" % mm)
+    print("login_data=%s" % json.dumps(login_data))
    # s = requests.Session()
     login_r = requests.post(login_url, headers=headers, data=login_data,verify=False)
     print("cookies=%s"%login_r.headers)
@@ -68,7 +67,7 @@ def mock_login(cookie,verifyCode,verify_url,pubilicKey,login_url,dfdl_url):
     }
 
     headers1 = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
         'Connection': 'keep-alive',
         'Content-Type': 'application/json',
         'Accept-Encoding': 'gzip, deflate, br',
@@ -99,7 +98,7 @@ def load_js(js_str):
 # cvc.do
 def checkVerifyCode(cookie,code,url):
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
         'Connection': 'keep-alive',
         'Accept-Encoding': 'gzip, deflate, br',
         #'Content-Type': 'application/x-www-form-urlencoded',
@@ -113,7 +112,6 @@ def checkVerifyCode(cookie,code,url):
     }
     page_r=requests.post(url,data=verify_data,headers=headers,verify=False)
     print("code_page-r=%s"%page_r.text)
-    print("code_page-r=%s" % page_r.headers)
     return page_r
 
 
@@ -131,10 +129,10 @@ if __name__ == '__main__':
     #checkVerifyCode("8qvv","https://95598.gz.csg.cn/cvc.do")
     #  账号：15121601911,密码：sn123456789
     # https://95598.gz.csg.cn/kh/khdlzy.do
-    mock_login("Hm_lvt_5ee2c8d53bcf6137d454d6bdeb6985a0=1547108226,1547170034,1547173573; WSYYTSESSION=SjZAJ-fp7L-Y2EhuIWErqs9rpUyjpNFanjxqC4LWoaSD-bNJLAcC!-940498615; Hm_lpvt_5ee2c8d53bcf6137d454d6bdeb6985a0=1547264587; HttpOnly",
-               "etn7",
+    mock_login("WSYYTSESSION=H6dzb7Ca0Xhr-b2kWDnyMaPnP-tEc8LLsuQiWe3Pcj9t8gOLZemI!-940498615",
+               "hehw",
                "https://95598.gz.csg.cn/cvc.do",
-              "e7e8e766-b7b7-4230-8bdd-ef5a5e1843c3_b6cdd8368e9b47e73def6ff1bf975340a65edd95c57f6ca29b56064c316139c4a06229af2a148fd6f01cc00d5f83e9b7fe3121d8bc3500990d8f5975b15fe94f",
+              "37a51c03-31f4-4d85-88aa-b4964b028fc5_9d4b4faa51697d9cc3a17c86580eaa19a31e8af172d3c3df1b18ded36713cf0da27ceb7a6ce21ea4cc7121df96366770e461b0cd23a51ad60c7365d365bff6d3",
                "https://95598.gz.csg.cn/yhdl.do",
                "https://95598.gz.csg.cn/df/dldffx.do")
 

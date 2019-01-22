@@ -1,0 +1,2 @@
+model_checkpoint_path: "D://cloud-projects/LSTM_captcha/model/dianwang_model.ckpt-3734"
+all_model_checkpoint_paths: "D://cloud-projects/LSTM_captcha/model/dianwang_model.ckpt-3734"

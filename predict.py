@@ -176,7 +176,7 @@ def write_to_file(predict_list, file_list):
     print("预测结果保存在：",output_path)
 
 
-if __name__ == '__main__':
+#if __name__ == '__main__':
     #predict()
     # get_test_set()
-    predictFromPath("/root/python-shell/verifycode/LSTM_captcha/test_data_dianwang/nmQX.png","nmQX")
+ #   predictFromPath("/root/python-shell/verifycode/LSTM_captcha/test_data_dianwang/nmQX.png","nmQX")
